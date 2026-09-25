@@ -1,0 +1,117 @@
+services:
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    working_dir: /var/www
+    volumes:
+      - ./api-gateway:/var/www
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8000"
+    networks:
+      - pos-network
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-service
+    working_dir: /var/www
+    volumes:
+      - ./auth-service:/var/www
+    ports:
+      - "8001:8001"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8001"
+    networks:
+      - pos-network
+
+  product-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product-service
+    working_dir: /var/www
+    volumes:
+      - ./product-service:/var/www
+    ports:
+      - "8002:8002"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8002"
+    networks:
+      - pos-network
+
+  order-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: order-service
+    working_dir: /var/www
+    volumes:
+      - ./order-service:/var/www
+    ports:
+      - "8003:8003"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8003"
+    networks:
+      - pos-network
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: inventory-service
+    working_dir: /var/www
+    volumes:
+      - ./inventory-service:/var/www
+    ports:
+      - "8004:8004"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8004"
+    networks:
+      - pos-network
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: payment-service
+    working_dir: /var/www
+    volumes:
+      - ./payment-service:/var/www
+    ports:
+      - "8005:8005"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8005"
+    networks:
+      - pos-network
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: notification-service
+    working_dir: /var/www
+    volumes:
+      - ./notification-service:/var/www
+    ports:
+      - "8006:8006"
+    command: >
+      sh -c "composer install &&
+      php artisan serve --host=0.0.0.0 --port=8006"
+    networks:
+      - pos-network
+
+networks:
+  pos-network:
+    driver: bridge
