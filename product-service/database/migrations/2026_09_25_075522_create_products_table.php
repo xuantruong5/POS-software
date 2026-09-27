@@ -27,11 +27,6 @@ return new class extends Migration
             // Giá
             $table->decimal('gia_von', 15, 2)->default(0);
             $table->decimal('gia_ban', 15, 2)->default(0);
-            // Kho
-            $table->decimal('so_luong_ton', 15, 2)->default(0);
-            $table->string('vi_tri_de_hang', 100)->nullable();
-            $table->decimal('ton_kho_toi_thieu', 15, 2)->default(0);
-            $table->decimal('ton_kho_toi_da', 15, 2)->default(0);
             // Bán hàng
             $table->boolean('ban_chay')->default(false);
             $table->boolean('khach_dat')->default(false);

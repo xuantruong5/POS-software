@@ -9,8 +9,11 @@ use App\Http\Controllers\GatewayController;
 // })->middleware('auth:sanctum');
 
 Route::get('/auth/test', [GatewayController::class, 'test']);
+Route::post('/auth/login', [GatewayController::class, 'login']);
 
 Route::get('/product/categories', [GatewayController::class, 'productCategories']);
+
+Route::get('/products', [GatewayController::class, 'products']);
 
 
 
