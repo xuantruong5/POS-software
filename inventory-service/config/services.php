@@ -34,5 +34,13 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'rabbitmq' => [
+        'host' => env('RABBITMQ_HOST', 'rabbitmq'),
+        'port' => env('RABBITMQ_PORT', 5672),
+        'user' => env('RABBITMQ_USER', 'admin'),
+        'password' => env('RABBITMQ_PASSWORD', 'admin'),
+        'exchange' => env('RABBITMQ_EXCHANGE', 'product_events'),
+    ],
+
 
 ];

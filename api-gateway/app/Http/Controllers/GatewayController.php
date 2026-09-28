@@ -40,12 +40,20 @@ class GatewayController extends Controller
 
         $user = $userResponse->json('user');
 
+
+
         // Lấy branch và store từ Auth-service
         $storeId = $user['id_store'];
         $branchId = $user['id_branch'];
 
         // 2. Lấy sản phẩm
-        $productResponse = Http::get('http://product-service:8002/api/products' );
+        $productResponse = Http::get( 'http://product-service:8002/api/products',
+            [
+                'id_store' => $storeId,
+                'id_branch' => $branchId
+            ]
+        );
+        
         if (!$productResponse->successful()) {
             return response()->json([
                 'success' => false,
@@ -117,6 +125,42 @@ class GatewayController extends Controller
             'data' => $products
         ]);
     }
+
+    public function storeProduct(Request $request)
+    {
+        // 1. Lấy thông tin user
+        $userResponse = Http::withToken($request->bearerToken())->get('http://auth-service:8001/api/user-system');
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không xác thực được tài khoản.'
+            ], 401);
+        }
+        // 2. Lấy user
+        $user = $userResponse->json('user');
+
+        // 3. Lấy store và branch
+        $storeId = $user['id_store'];
+        $branchId = $user['id_branch'];
+
+         // 4. Lấy dữ liệu sản phẩm
+        $data = $request->all();
+
+        // Gán store và branch từ tài khoản đăng nhập
+        $data['id_store'] = $storeId;
+        $data['id_branch'] = $branchId;
+
+        // 4. Gửi sang Product Service
+        $productResponse = Http::post( 'http://product-service:8002/api/store-products', $data );
+
+        // 5. Trả kết quả về Frontend
+        return response()->json(
+            $productResponse->json(),
+            $productResponse->status()
+        );
+    }
+
+
 
 
 }

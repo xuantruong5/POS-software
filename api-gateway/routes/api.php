@@ -15,6 +15,8 @@ Route::get('/product/categories', [GatewayController::class, 'productCategories'
 
 Route::get('/products', [GatewayController::class, 'products']);
 
+Route::post('store/products', [GatewayController::class, 'storeProduct']);
+
 
 
 
