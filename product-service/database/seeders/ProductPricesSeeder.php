@@ -25,7 +25,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 1,
                 'id_product' => 15,
-                'gia_ban' => 25000,
+                'don_gia' => 25000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -34,7 +34,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 1,
                 'id_product' => 16,
-                'gia_ban' => 10000,
+                'don_gia' => 10000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -43,7 +43,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 1,
                 'id_product' => 6,
-                'gia_ban' => 10000,
+                'don_gia' => 10000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -52,7 +52,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 1,
                 'id_product' => 20,
-                'gia_ban' => 15000,
+                'don_gia' => 15000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -65,7 +65,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 2,
                 'id_product' => 15,
-                'gia_ban' => 22000,
+                'don_gia' => 22000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -74,7 +74,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 2,
                 'id_product' => 16,
-                'gia_ban' => 8500,
+                'don_gia' => 8500,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -83,7 +83,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 2,
                 'id_product' => 6,
-                'gia_ban' => 8500,
+                'don_gia' => 8500,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -92,7 +92,7 @@ class ProductPricesSeeder extends Seeder
             [
                 'id_price_list' => 2,
                 'id_product' => 20,
-                'gia_ban' => 12000,
+                'don_gia' => 12000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

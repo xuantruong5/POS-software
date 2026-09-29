@@ -66,7 +66,7 @@ class ProductCreatedConsumer
             // Tạo lịch sử giao dịch kho
             InventoryTransaction::create([
                 'id_inventory' => $inventory->id,
-                'loai_giao_dich' => 'nhap_hang',
+                'loai_giao_dich' => 'khoi_tao',
                 'so_luong' => $soLuongTon,
                 'so_luong_truoc' => 0,
                 'so_luong_sau' => $soLuongTon,

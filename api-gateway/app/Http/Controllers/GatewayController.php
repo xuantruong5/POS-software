@@ -13,11 +13,15 @@ class GatewayController extends Controller
 
         return response()->json($response->json(), $response->status());
     }
+
+
     public function login(Request $request)
     {
         $response = Http::post( 'http://auth-service:8001/api/login', $request->all());
         return response()->json($response->json(), $response->status());
     }
+
+    
 
     public function productCategories()
     {
@@ -95,14 +99,16 @@ class GatewayController extends Controller
                 // Thông tin sản phẩm
                 'id' => $product['id'],
                 'id_category' => $product['id_category'],
+                'ten_danh_muc' => $product['ten_danh_muc'],
                 'id_store' => $product['id_store'],
                 'loai_hang' => $product['loai_hang'],
                 'ten_san_pham' => $product['ten_san_pham'],
                 'ma_san_pham' => $product['ma_san_pham'],
                 'ma_vach' => $product['ma_vach'],
                 'hinh_anh' => $product['hinh_anh'],
-                'thuong_hieu' => $product['thuong_hieu'],
-                'don_vi_tinh' => $product['don_vi_tinh'],
+                // 'id_brand' => $product['id_brand'] ?? null,
+                'ten_thuong_hieu' => $product['ten_thuong_hieu'] ?? null,
+                
                 'trong_luong' => $product['trong_luong'],
                 'gia_von' => $product['gia_von'],
                 'gia_ban' => $product['gia_ban'],
@@ -110,6 +116,28 @@ class GatewayController extends Controller
                 'khach_dat' => $product['khach_dat'],
                 'trang_thai' => $product['trang_thai'],
 
+                'channel_name' => $product['channel_name'] ?? null,
+                // Bảng giá
+                'ten_bang_gia' => $product['ten_bang_gia'] ?? null,
+                'don_gia' => $product['don_gia'] ?? null,
+                
+                // Biến thể
+                'huong_vi' => $product['huong_vi'] ?? null,
+                'dung_tich' => $product['dung_tich'] ?? null,
+                'mau_sac' => $product['mau_sac'] ?? null,
+                'trong_luong_variant' => $product['trong_luong_variant'] ?? null,
+                'kich_thuoc' => $product['kich_thuoc'] ?? null,
+                'gia_tri' => $product['gia_tri'] ?? 0,
+
+                'ten_don_vi' => $product['ten_don_vi'] ?? null,
+                'ty_le_quy_doi' => $product['ty_le_quy_doi'] ?? 1,
+                'gia_ban_don_vi' => $product['gia_ban_don_vi'] ?? null,
+                'ban_truc_tiep' => $product['ban_truc_tiep'] ?? 0,
+                'la_don_vi_co_ban' => $product['la_don_vi_co_ban'] ?? 0,
+                
+                // Thời gian
+                'created_at' => $product['created_at'],
+                'updated_at' => $product['updated_at'],
                 // Thông tin tồn kho
                 'so_luong_ton' => $inventory['so_luong_ton'] ?? 0,
                 'ton_kho_toi_thieu' => $inventory['ton_kho_toi_thieu'] ?? 0,
@@ -159,6 +187,54 @@ class GatewayController extends Controller
             $productResponse->status()
         );
     }
+
+
+    public function storeLocation(Request $request)
+    {
+        if (!$request->bearerToken()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                'http://inventory-service:8004/api/store/location',
+                $request->all()
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+    public function storeBrand(Request $request)
+    {
+        if (!$request->bearerToken()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                'http://product-service:8002/api/store-brand',
+                $request->all()
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+
+
+
+
 
 
 

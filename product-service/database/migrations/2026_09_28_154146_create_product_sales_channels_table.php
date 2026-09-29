@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_prices', function (Blueprint $table) { 
+        Schema::create('product_sales_channels', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_price_list');
             $table->integer('id_product');
-            $table->decimal('don_gia', 15, 2);
+            $table->integer('id_sales_channel');
             $table->timestamps();
         });
     }
@@ -25,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_prices');
+        Schema::dropIfExists('product_sales_channels');
     }
 };
-
-// bảng này giá bán của sỉ lẻ 

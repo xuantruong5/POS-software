@@ -17,6 +17,10 @@ Route::get('/products', [GatewayController::class, 'products']);
 
 Route::post('store/products', [GatewayController::class, 'storeProduct']);
 
+Route::post('/store/location', [GatewayController::class, 'storeLocation']); // vị trí để hàng 
+
+Route::post('/store-brand', [GatewayController::class, 'storeBrand']); // tạo mới thương hiệu 
+
 
 
 

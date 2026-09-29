@@ -18,6 +18,9 @@ return new class extends Migration
 
             // ID sản phẩm từ product-service
             $table->integer('id_product');
+            
+             // Vị trí sản phẩm trong kho
+            $table->integer('id_location')->nullable();
 
             // Số lượng tồn hiện tại
             $table->decimal('so_luong_ton', 15, 2)->default(0);
@@ -28,8 +31,7 @@ return new class extends Migration
             // Mức tồn tối đa
             $table->decimal('ton_kho_toi_da', 15, 2)->default(0);
 
-            // Vị trí sản phẩm trong kho
-            $table->string('vi_tri_de_hang', 100)->nullable();
+           
 
             $table->timestamps();
         });

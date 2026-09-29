@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             ProductPricesSeeder::class,
             ProductCombosSeeder::class,
             ProductBranchSeeder::class,
+            SalesChannelSeeder::class,
+            ProductSalesChannelSeeder::class,
        ]);
     }
 }

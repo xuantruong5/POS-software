@@ -13,6 +13,6 @@ class Inventory extends Model
         'so_luong_ton',
         'ton_kho_toi_thieu',
         'ton_kho_toi_da',
-        'vi_tri_de_hang',
+        'id_location',
     ];
 }

@@ -16,9 +16,20 @@ class ProductController extends Controller
         $branchId = $request->query('id_branch');
 
         $products = Product::join( 'product_branches', 'products.id', '=', 'product_branches.id_product' )
+            ->join( 'categories', 'products.id_category','=', 'categories.id')
+            ->leftJoin('product_sales_channels','products.id','=','product_sales_channels.id_product')
+            ->leftJoin('sales_channels','product_sales_channels.id_sales_channel','=','sales_channels.id')
+            ->leftJoin('product_variants','products.id','=','product_variants.id_product')
+            ->leftJoin('product_prices','products.id','=', 'product_prices.id_product')
+            ->leftJoin('price_lists','product_prices.id_price_list','=', 'price_lists.id')
+            ->leftJoin('brands','products.id_brand','=','brands.id')
+            ->leftJoin('product_units','products.id','=','product_units.id_product')
             ->where('products.id_store', $storeId)
             ->where('product_branches.id_branch', $branchId)
-            ->select('products.*')
+            ->select( 'products.*', 'categories.ten_danh_muc','sales_channels.channel_name',
+                'product_variants.huong_vi','product_variants.dung_tich','product_variants.mau_sac','product_variants.trong_luong','product_variants.kich_thuoc','product_variants.gia_tri',
+                'price_lists.ten_bang_gia','product_prices.don_gia', 'brands.ten_thuong_hieu', 
+                'product_units.ten_don_vi','product_units.ty_le_quy_doi','product_units.gia_ban_don_vi','product_units.ban_truc_tiep','product_units.la_don_vi_co_ban')
             ->get();
 
         return response()->json([

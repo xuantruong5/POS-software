@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_prices', function (Blueprint $table) { 
+        Schema::create('sales_channels', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_price_list');
-            $table->integer('id_product');
-            $table->decimal('don_gia', 15, 2);
+            $table->string('channel_code', 50)->unique(); // Pos / FACEBOOK / SHOPEE/ WEBSITE 
+            $table->string('channel_name', 100); // bán tại cửa hàng, Facebook,Shopee, Website
+            $table->integer('trang_thai')->default(1);
             $table->timestamps();
         });
     }
@@ -25,8 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_prices');
+        Schema::dropIfExists('sales_channels');
     }
 };
-
-// bảng này giá bán của sỉ lẻ 
+// bảng liên kết kênh bán 

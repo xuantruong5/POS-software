@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_prices', function (Blueprint $table) { 
+        Schema::create('vi_tri_de_hang', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_price_list');
-            $table->integer('id_product');
-            $table->decimal('don_gia', 15, 2);
+              // ID chi nhánh từ auth-service
+            $table->integer('id_branch')->nullable();
+            // Tên vị trí để hàng
+            $table->string('ten_vi_tri', 100);
+            // 1: đang sử dụng, 0: ngừng sử dụng
+            $table->integer('trang_thai')->default(1);
             $table->timestamps();
         });
     }
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_prices');
+        Schema::dropIfExists('vi_tri_de_hang');
     }
 };
-
-// bảng này giá bán của sỉ lẻ 

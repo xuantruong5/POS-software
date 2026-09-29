@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\LocationController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -10,3 +11,4 @@ use App\Http\Controllers\InventoryController;
 
 
 Route::get('/inventories/products', [InventoryController::class, 'getProducts']);
+Route::post('/store/location', [LocationController::class, 'storeLocation']);
