@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('id_category');
-            $table->integer('id_store');
+            $table->integer('id_store')->nullable();
             $table->integer('id_brand')->nullable(); // thương hiệu 
             $table->string('loai_hang', 30)->default('hang_hoa'); // combo hay là dịch vụ gì đó 
              // Thông tin sản phẩm

@@ -231,6 +231,58 @@ class GatewayController extends Controller
         );
     }
 
+    public function storeCombo(Request $request)
+    {
+
+        if (!$request->bearerToken()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        // 1. Lấy thông tin user từ Auth Service
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không xác thực được tài khoản.'
+            ], 401);
+        }
+        $user = $userResponse->json('user');
+
+        // phân quyền thử 
+        if ($user['id_system_role'] != 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Chỉ OWNER của tạp hóa mới có quyền tạo combo.'
+            ], 403);
+        }
+
+
+        // 2. Lấy store + branch
+        $idStore = $user['id_store'];
+        $idBranch = $user['id_branch'];
+        // 3. Gửi sang Product Service
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                'http://product-service:8002/api/store-combo',
+                array_merge(
+                    $request->all(),
+                    [
+                        'id_store' => $idStore,
+                        'id_branch' => $idBranch,
+                    ]
+                )
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
 
 
 

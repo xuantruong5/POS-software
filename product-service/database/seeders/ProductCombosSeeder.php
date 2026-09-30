@@ -14,50 +14,26 @@ class ProductCombosSeeder extends Seeder
     public function run(): void
     {
         DB::table('product_combos')->truncate();
+
         DB::table('product_combos')->insert([
             // ==========================================
             // COMBO 1
-            // Bánh mì sandwich x2
-            // Coca Cola x1
             // ==========================================
             [
-                'id_combo_product' => 23,
-                'id_product' => 15,
-                'so_luong' => 2,
+                'id_product' => 23,
+                'mo_ta' => 'Bánh mì sandwich x2 + Coca Cola x1',
+                'ghi_chu' => 'Combo Bánh mì + Coca Cola',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'id_combo_product' => 23,
-                'id_product' => 6,
-                'so_luong' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+
             // ==========================================
             // COMBO 2
-            // Snack khoai tây x1
-            // Kẹo dẻo x1
-            // Coca Cola x1
             // ==========================================
             [
-                'id_combo_product' => 24,
-                'id_product' => 20,
-                'so_luong' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id_combo_product' => 24,
-                'id_product' => 12,
-                'so_luong' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id_combo_product' => 24,
-                'id_product' => 6,
-                'so_luong' => 1,
+                'id_product' => 24,
+                'mo_ta' => 'Snack khoai tây x1 + Kẹo dẻo x1 + Coca Cola x1',
+                'ghi_chu' => 'Combo Snack + Kẹo + Coca Cola',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_branches', function (Blueprint $table) {
             $table->id();
             $table->integer('id_product');
-            $table->integer('id_branch');
+            $table->integer('id_branch')->nullable();
             $table->integer('trang_thai')->default(1);
             $table->timestamps();
         });

@@ -21,6 +21,8 @@ Route::post('/store/location', [GatewayController::class, 'storeLocation']); // 
 
 Route::post('/store-brand', [GatewayController::class, 'storeBrand']); // tạo mới thương hiệu 
 
+Route::post('/store-combo', [GatewayController::class, 'storeCombo']);
+
 
 
 

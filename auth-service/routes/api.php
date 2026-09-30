@@ -16,6 +16,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user-system', [AuthController::class, 'userSystem'])
     ->middleware('system.user');
 
+// Route::get('/test-permission', function () {
+//     return response()->json([
+//         'status' => true,
+//         'message' => 'Bạn có quyền report.view',
+//     ]);
+// })->middleware([
+//     'system.user',
+//     'permission:report.view',
+// ]);
+
     
 
 

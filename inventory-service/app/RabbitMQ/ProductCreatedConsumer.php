@@ -51,16 +51,17 @@ class ProductCreatedConsumer
             );
 
             echo "Nhận ProductCreated: {$data['id_product']}\n";
-
             $soLuongTon = $data['so_luong_ton'] ?? 0;
+            $tonKhoToiThieu = $data['ton_kho_toi_thieu'] ?? 0;
+            $tonKhoToiDa = $data['ton_kho_toi_da'] ?? 0;
 
             $inventory = Inventory::create([
                 'id_branch' => $data['id_branch'],
                 'id_product' => $data['id_product'],
                 'so_luong_ton' => $soLuongTon,
-                'ton_kho_toi_thieu' => $data['ton_kho_toi_thieu'],
-                'ton_kho_toi_da' => $data['ton_kho_toi_da'],
-                'vi_tri_de_hang' => $data['vi_tri_de_hang'],
+                'ton_kho_toi_thieu' => $tonKhoToiThieu,
+                'ton_kho_toi_da' => $tonKhoToiDa,
+                'id_location' => $data['id_location'] ?? null,
             ]);
 
             // Tạo lịch sử giao dịch kho

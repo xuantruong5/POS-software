@@ -48,6 +48,8 @@ class AuthController extends Controller
             'store',
             'branch',
             'role.system',
+            'role.permissions',
+
         ]);
 
         return response()->json([

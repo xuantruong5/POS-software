@@ -23,6 +23,12 @@ class SystemRole extends Model
     {
         return $this->hasMany(SystemUser::class, 'id_system_role');
     }
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class,'role_permissions','id_system_role','id_permission');
+    }
+
+
 
 
 }

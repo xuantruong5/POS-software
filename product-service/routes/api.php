@@ -21,3 +21,5 @@ Route::post('/store-products', [ProductController::class, 'store']);
 Route::post('/store-products', [ProductController::class, 'store']);
 
 Route::post('/store-brand', [BrandController::class, 'storeBrand']);
+
+Route::post('/store-combo', [ProductController::class, 'storeComBo']);

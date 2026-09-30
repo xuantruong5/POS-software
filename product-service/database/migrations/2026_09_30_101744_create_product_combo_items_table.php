@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_combos', function (Blueprint $table) {
+        Schema::create('product_combo_items', function (Blueprint $table) {
             $table->id();
-            // ID sản phẩm trong bảng products có loai_hang = combo
-            $table->integer('id_product')->unique();
-            $table->text('mo_ta')->nullable();
-            $table->text('ghi_chu')->nullable();
-           
-           
+            $table->integer('id_product_combo');// lấy chỗ loại hàng combo số mấy đó của product 
+            $table->integer('id_product');
+            $table->decimal('so_luong', 15, 2);// mấy cái trong sản phẩm đó vd bánh quy 2 cái 
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_combos');
+        Schema::dropIfExists('product_combo_items');
     }
 };
