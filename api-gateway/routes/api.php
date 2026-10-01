@@ -23,6 +23,11 @@ Route::post('/store-brand', [GatewayController::class, 'storeBrand']); // tạo 
 
 Route::post('/store-combo', [GatewayController::class, 'storeCombo']);
 
+Route::post('/store/supplier', [GatewayController::class, 'storeSupplier']);
+Route::put('/update/supplier/{id}', [GatewayController::class, 'updateSupplier']);
+
+
+
 
 
 

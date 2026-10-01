@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_store');
+            $table->integer('id_user')->nullable();
+            $table->integer('id_store')->nullable();
             $table->integer('id_branch')->nullable();
             $table->string('loai_thong_bao', 50);
             $table->string('tieu_de', 255);

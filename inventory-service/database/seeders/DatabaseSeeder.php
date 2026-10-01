@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             InventorySeeder::class,
             InventoryTransactionSeeder::class,
+            SupplierGroupSeeder::class,
+            SupplierSeeder::class,
+
         ]);
     }
 }

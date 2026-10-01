@@ -8,6 +8,7 @@ class Notification extends Model
 {
     protected $table = 'notifications';
     protected $fillable = [
+        'id_user',
         'id_store',
         'id_branch',
         'loai_thong_bao',

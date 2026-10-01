@@ -283,6 +283,82 @@ class GatewayController extends Controller
         );
     }
 
+    public function storeSupplier(Request $request)
+    {
+        // 1. Lấy thông tin user từ Auth Service
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không xác thực được tài khoản.'
+            ], 401);
+        }
+
+        // 2. Lấy user
+        $user = $userResponse->json('user');
+
+        // 3. Lấy thông tin từ user
+        $userId = $user['id'];
+        $storeId = $user['id_store'];
+        $branchId = $user['id_branch'];
+
+        // 4. Lấy dữ liệu nhà cung cấp
+        $data = $request->all();
+
+        // Gán người tạo từ tài khoản đăng nhập
+        $data['id_user'] = $userId;
+        $data['id_store'] = $storeId;
+        $data['id_branch'] = $branchId;
+
+        
+
+        // 5. Gửi sang Supplier Service
+        $supplierResponse = Http::post(
+            'http://inventory-service:8004/api/store/supplier',
+            $data
+        );
+
+        return response()->json(
+            $supplierResponse->json(),
+            $supplierResponse->status()
+        );
+    }
+
+    public function updateSupplier(Request $request, $id)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không thể xác thực người dùng.',
+            ], 401);
+        }
+
+        $user = $userResponse->json('user');
+        $data = $request->all();
+        $data['id_user'] = $user['id'];
+        $data['id_store'] = $user['id_store'];
+        $data['id_branch'] = $user['id_branch'];
+
+        $response = Http::withToken($request->bearerToken())
+            ->put(
+                "http://inventory-service:8004/api/update/supplier/{$id}",
+                $data
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+
+
+
+
 
 
 
