@@ -146,7 +146,7 @@ class SupplierController extends Controller
             'data' => $supplier,
         ], 200);
     }
-    public function deleteSupplier($id)
+    public function deleteSupplier($id, SupplierEventPublisher $publisher)
     {
         $supplier = Supplier::find($id);
 
@@ -159,11 +159,73 @@ class SupplierController extends Controller
 
         $supplier->delete();
 
+        $publisher->publishSupplierDeleted([
+            'id_supplier' => $supplier->id,
+            'id_user' => $supplier->id_user,
+            'id_store' => $supplier->id_store,
+            'id_branch' => $supplier->id_branch,
+            'ma_nha_cung_cap' => $supplier->ma_nha_cung_cap,
+            'ten_nha_cung_cap' => $supplier->ten_nha_cung_cap,
+        ]);
+
+
         return response()->json([
             'status' => true,
             'message' => 'Xóa nhà cung cấp thành công'
         ]);
     }
+    public function restoreSupplier($id)
+    {
+        $supplier = Supplier::withTrashed()->find($id);
+
+        if (!$supplier) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Không tìm thấy nhà cung cấp'
+            ], 404);
+        }
+
+        if (!$supplier->trashed()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Nhà cung cấp này chưa bị xóa'
+            ], 400);
+        }
+
+        $supplier->restore();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Khôi phục nhà cung cấp thành công'
+        ]);
+    }
+    public function changeStatusSupplier(Request $request, $id)
+    {
+        $supplier = Supplier::find($id);
+
+        if (!$supplier) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Không tìm thấy nhà cung cấp'
+            ], 404);
+        }
+
+        $request->validate([
+            'trang_thai' => 'required|in:0,1'
+        ]);
+
+        $supplier->trang_thai = $request->trang_thai;
+        $supplier->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Thay đổi trạng thái nhà cung cấp thành công',
+            'trang_thai' => $supplier->trang_thai
+        ]);
+    }
+
+
+
 
 
 

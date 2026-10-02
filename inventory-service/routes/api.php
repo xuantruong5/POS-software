@@ -23,5 +23,7 @@ Route::post('/ward/search', [LocationController::class, 'searchWard']); // phư�
 Route::get('/supplier', [SupplierController::class, 'getSupplier']);
 Route::post('/store/supplier', [SupplierController::class, 'storeSupplier']);
 Route::put('update/supplier/{id}', [SupplierController::class, 'updateSupplier']);
-Route::delete('/delete/supplier/{id}', [SupplierController::class, 'deleteSupplier']);
+Route::delete('/delete/supplier/{id}', [SupplierController::class, 'deleteSupplier']); // xóa tạm có thể restore được 
+Route::put('/suppliers/{id}/restore', [SupplierController::class, 'restoreSupplier']);
+Route::post('/supplier/status/{id}', [SupplierController::class, 'changeStatusSupplier']);
 

@@ -13,15 +13,12 @@ class GatewayController extends Controller
 
         return response()->json($response->json(), $response->status());
     }
-
-
+    
     public function login(Request $request)
     {
         $response = Http::post( 'http://auth-service:8001/api/login', $request->all());
         return response()->json($response->json(), $response->status());
     }
-
-    
 
     public function productCategories()
     {
@@ -292,7 +289,7 @@ class GatewayController extends Controller
         if (!$userResponse->successful()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Không xác thực được tài khoản.'
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
             ], 401);
         }
 
@@ -333,7 +330,7 @@ class GatewayController extends Controller
         if (!$userResponse->successful()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Không thể xác thực người dùng.',
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
             ], 401);
         }
 
@@ -354,6 +351,153 @@ class GatewayController extends Controller
             $response->status()
         );
     }
+    public function deleteSupplier(Request $request, $id)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->delete(
+                "http://inventory-service:8004/api/delete/supplier/{$id}"
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+    public function restoreSupplier(Request $request, $id)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->put(
+                "http://inventory-service:8004/api/suppliers/{$id}/restore"
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+    public function getSupplier(Request $request)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $user = $userResponse->json('user');
+
+        $response = Http::withToken($request->bearerToken())
+            ->get('http://inventory-service:8004/api/supplier', [
+                'id_store' => $user['id_store'],
+                'id_branch' => $user['id_branch'],
+            ]);
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+    public function changeStatusSupplier(Request $request, $id)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng đăng nhập để thực hiện chức năng này.'
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                "http://inventory-service:8004/api/supplier/status/{$id}",
+                $request->all()
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+    public function searchProvince(Request $request)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không thể xác thực người dùng.',
+            ], 401);
+        }
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                'http://inventory-service:8004/api/province/search',
+                $request->all()
+            );
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+    public function searchWard(Request $request)
+    {
+        $userResponse = Http::withToken($request->bearerToken())
+            ->get('http://auth-service:8001/api/user-system');
+
+        if (!$userResponse->successful()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không thể xác thực người dùng.',
+            ], 401);
+        }
+
+        $response = Http::withToken($request->bearerToken())
+            ->post(
+                'http://inventory-service:8004/api/ward/search',
+                $request->all()
+            );
+
+        return response()->json(
+            $response->json(),
+            $response->status()
+        );
+    }
+
+    
+
+
+
+
+
+
 
 
 

@@ -41,7 +41,7 @@ return new class extends Migration
             $table->decimal('tong_mua', 15, 2)->default(0);
             $table->decimal('tong_mua_tru_tra_hang', 15, 2)->default(0);
 
-
+            $table->softDeletes(); // xóa tạm sẽ kh xóa database 
             $table->timestamps();
         });
     }

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\PriceListController;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -23,3 +25,7 @@ Route::post('/store-products', [ProductController::class, 'store']);
 Route::post('/store-brand', [BrandController::class, 'storeBrand']);
 
 Route::post('/store-combo', [ProductController::class, 'storeComBo']);
+
+Route::post('/store/price', [PriceListController::class, 'storePriceList']);
+
+Route::post('/price/{id}/products/all', [PriceListController::class, 'allProduct']);

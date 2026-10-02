@@ -23,8 +23,21 @@ Route::post('/store-brand', [GatewayController::class, 'storeBrand']); // tạo 
 
 Route::post('/store-combo', [GatewayController::class, 'storeCombo']);
 
+
+Route::get('/supplier', [GatewayController::class, 'getSupplier']);
 Route::post('/store/supplier', [GatewayController::class, 'storeSupplier']);
 Route::put('/update/supplier/{id}', [GatewayController::class, 'updateSupplier']);
+// Xóa tạm - Soft Delete
+Route::delete('/delete/supplier/{id}', [GatewayController::class, 'deleteSupplier']);
+// Khôi phục
+Route::put('/suppliers/{id}/restore', [GatewayController::class, 'restoreSupplier']);
+Route::post('/supplier/status/{id}', [GatewayController::class, 'changeStatusSupplier']);
+
+
+// lấy các tỉnh, thành phố và xã/phường
+Route::post('/province/search', [GatewayController::class, 'searchProvince']);
+Route::post('/ward/search', [GatewayController::class, 'searchWard']);
+
 
 
 

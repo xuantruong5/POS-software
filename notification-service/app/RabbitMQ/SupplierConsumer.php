@@ -48,6 +48,11 @@ class SupplierConsumer
             'supplier_events',
             'supplier.updated'
         );
+        $channel->queue_bind(
+            'notification_supplier',
+            'supplier_events',
+            'supplier.deleted'
+        );
 
         echo "Notification Service đang chờ Supplier events...\n";
 
@@ -97,6 +102,24 @@ class SupplierConsumer
                 ]);
 
                 echo "Đã tạo notification cập nhật nhà cung cấp.\n";
+            }
+            // Supplier deleted
+            if ($event === 'supplier.deleted') {
+
+                Notification::create([
+                    'id_user' => $data['id_user'],
+                    'id_store' => $data['id_store'],
+                    'id_branch' => $data['id_branch'] ?? null,
+                    'loai_thong_bao' => 'supplier_deleted',
+                    'tieu_de' => 'Xóa nhà cung cấp',
+                    'noi_dung' => 'Nhà cung cấp "'
+                        . $data['ten_nha_cung_cap']
+                        . '" đã được xóa.',
+                    'id_reference' => $data['id_supplier'],
+                    'da_doc' => false,
+                ]);
+
+                echo "Đã xóa nhà cung cấp: {$data['ten_nha_cung_cap']}\n";
             }
 
             $message->ack();
