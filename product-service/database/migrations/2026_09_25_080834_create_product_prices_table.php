@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_price_list');
             $table->integer('id_product');
-            $table->decimal('gia_ban', 15, 2);
+            $table->decimal('don_gia', 15, 2);
             $table->timestamps();
         });
     }
